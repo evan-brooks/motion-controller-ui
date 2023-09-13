@@ -14,7 +14,7 @@ onMounted(async () => {
     await scene.init({
       width: 400,
       height: 400,
-      el: viewport.value,
+      element: viewport.value,
     });
     scene.animate();
   }

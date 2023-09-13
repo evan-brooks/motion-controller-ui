@@ -1,9 +1,9 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <ViewPort />
+    <JogControls />
   </q-page>
 </template>
 
 <script setup lang="ts">
-import ViewPort from '../components/ViewPort.vue';
+import JogControls from '../components/JogControls.vue';
 </script>

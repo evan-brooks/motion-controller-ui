@@ -1,17 +1,32 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header>
+  <q-layout view="hHh lpR fFf">
+    <q-header bordered>
       <q-toolbar>
-        <q-toolbar-title> </q-toolbar-title>
-
-        <div>{{ uiVersion }}</div>
+        <HeaderBar class="q-pl-none" />
+        <div class="q-mr-md">{{ uiVersion }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" mini bordered :breakpoint="700">
+    <q-drawer
+      v-model="leftDrawerOpen"
+      side="left"
+      mini
+      bordered
+      :breakpoint="700"
+    >
       <q-list>
-        <NavLink v-for="link in navLinks" :key="link.title" v-bind="link" />
+        <PageLink v-for="link in pageLinks" :key="link.title" v-bind="link" />
       </q-list>
+    </q-drawer>
+
+    <q-drawer
+      v-model="rightDrawerOpen"
+      side="right"
+      :width="401"
+      :breakpoint="700"
+      :style="{ 'background-color': '#121212' }"
+    >
+      <ViewPort />
     </q-drawer>
 
     <q-page-container>
@@ -22,47 +37,46 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import NavLink, { NavLinkProps } from 'components/NavLink.vue';
+import PageLink, { PageLinkProps } from 'components/PageLink.vue';
+import ViewPort from 'components/ViewPort.vue';
+import HeaderBar from 'src/components/HeaderBar.vue';
 import { version } from '../../package.json';
 
 const uiVersion = version;
 
-const navLinks: NavLinkProps[] = [
-  {
-    title: 'Setup',
-    icon: 'settings',
-    link: './settings',
-  },
+const pageLinks: PageLinkProps[] = [
   {
     title: 'Teach',
     icon: 'route',
-    link: './teach',
+    path: '/teach',
   },
   {
     title: 'Probe',
     icon: 'troubleshoot',
-    link: './probe',
+    path: '/probe',
   },
   {
     title: 'Program',
     icon: 'code',
-    link: './program',
+    path: '/program',
   },
   {
     title: 'Test',
     icon: 'insights',
-    link: './points',
+    path: '/test',
   },
   {
     title: 'Utilities',
     icon: 'handyman',
-    link: './utilities',
+    path: '/utilities',
+  },
+  {
+    title: 'Setup',
+    icon: 'settings',
+    path: '/settings',
   },
 ];
 
 const leftDrawerOpen = ref(true);
-
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
+const rightDrawerOpen = ref(true);
 </script>
